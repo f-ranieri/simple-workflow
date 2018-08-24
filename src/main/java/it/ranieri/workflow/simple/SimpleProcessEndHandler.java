@@ -11,7 +11,7 @@ public class SimpleProcessEndHandler implements ProcessEndHandler<SimpleContext>
 
 	@Override
 	public void handleProcessEnd(SimpleContext context, Process<SimpleContext> process) {
-		logger.info("handleProcessEnd");
+		logger.info("Handling Process End!");
 	}
 
 }

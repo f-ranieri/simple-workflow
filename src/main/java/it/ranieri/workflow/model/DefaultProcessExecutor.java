@@ -26,7 +26,7 @@ public class DefaultProcessExecutor<C extends ProcessContext,P extends Process<C
 
 			logger.info(String.format("Activity %s terminated.", activity));
 
-			if (process.isEnded(context)) {
+			if (activity.terminateProcess(context, process)) {
 
 				ProcessEndHandler<C> endHandler = activity.getProcessEndHandler();
 

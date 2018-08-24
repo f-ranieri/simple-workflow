@@ -15,11 +15,6 @@ public class SimpleProcess implements Process<SimpleContext>{
 		setActivities(new LinkedList<>());
 	}
 
-	@Override
-	public boolean isEnded(SimpleContext context) {
-		return context.getMessages().size()>=3;
-	}
-
 	public List<Activity<SimpleContext>> getActivities() {
 		return activities;
 	}

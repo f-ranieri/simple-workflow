@@ -1,8 +1,8 @@
 package it.ranieri.workflow.simple;
 
-import java.util.Arrays;
 import java.util.logging.Logger;
 
+import it.ranieri.workflow.model.Activity;
 import it.ranieri.workflow.model.DefaultProcessExecutor;
 
 public class SimpleWorkflowTest {
@@ -11,20 +11,26 @@ public class SimpleWorkflowTest {
 
 	public static void main(String[] args) throws Exception {
 		
-		logger.info("starting process!");
-		
-		AddMessageActivity a0 = new AddMessageActivity();
-		AddMessageActivity a1 = new AddMessageActivity();
-		AddMessageActivity a2 = new AddMessageActivity();
-		AddMessageActivity a3 = new AddMessageActivity();
-		AddMessageActivity a4 = new AddMessageActivity();
-		AddMessageActivity a5 = new AddMessageActivity();
+		logger.info("Setting up tasks!");
+
+		Activity<SimpleContext> startMsg = new AddTextMessageActivity("Start");
+		Activity<SimpleContext> endMsg = new AddTextMessageActivity("End");
 		
 		SimpleProcess process = new SimpleProcess();
+		process.getActivities().add(startMsg);
 		
-		process.getActivities().addAll(Arrays.asList(a0, a1, a2, a3, a4, a5));
+		for (int i = 0; i < 25; i++) {
+			Activity<SimpleContext> activity = new AddRandomNumberMessageActivity();
+			process.getActivities().add(activity);
+		}
+		
+		process.getActivities().add(endMsg);
 		
 		SimpleContext context = new SimpleContext();
+		
+		logger.info("Set up completed.");
+		
+		logger.info("starting process!");
 		
 		logger.info(String.format("before execution messages are: %s",context.getMessages()));
 		
@@ -33,7 +39,6 @@ public class SimpleWorkflowTest {
 		logger.info(String.format("after execution messages are: %s",context.getMessages()));
 		
 		logger.info("process ended!");
-		
 
 	}
 
