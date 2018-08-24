@@ -28,7 +28,7 @@ public class SimpleWorkflowTest {
 		
 		logger.info(String.format("before execution messages are: %s",context.getMessages()));
 		
-		new DefaultProcessExecutor().execute(context, process);
+		new DefaultProcessExecutor<SimpleContext, SimpleProcess>().execute(context, process);
 		
 		logger.info(String.format("after execution messages are: %s",context.getMessages()));
 		

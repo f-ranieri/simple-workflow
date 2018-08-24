@@ -1,9 +1,9 @@
 package it.ranieri.workflow.model;
 
-public interface Activity<T extends ProcessContext> {
+public interface Activity<C extends ProcessContext> {
 
-	public T execute(T context) throws Exception;
+	public C execute(C context) throws Exception;
 
-	public ProcessEndHandler getProcessEndHandler();
+	public ProcessEndHandler<C> getProcessEndHandler();
 
 }

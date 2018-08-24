@@ -1,14 +1,14 @@
 package it.ranieri.workflow.model;
 
-public abstract class AbstractActivity<T extends ProcessContext> implements Activity<T> {
+public abstract class AbstractActivity<C extends ProcessContext, P extends Process<C>> implements Activity<C> {
 
-	private ProcessEndHandler processEndHandler;
+	private ProcessEndHandler<C> processEndHandler;
 
-	public ProcessEndHandler getProcessEndHandler() {
+	public ProcessEndHandler<C> getProcessEndHandler() {
 		return processEndHandler;
 	}
 
-	public void setProcessEndHandler(ProcessEndHandler processEndHandler) {
+	public void setProcessEndHandler(ProcessEndHandler<C> processEndHandler) {
 		this.processEndHandler = processEndHandler;
 	}
 

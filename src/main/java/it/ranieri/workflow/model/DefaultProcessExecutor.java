@@ -2,33 +2,33 @@ package it.ranieri.workflow.model;
 
 import java.util.logging.Logger;
 
-public class DefaultProcessExecutor implements ProcessExecutor {
+public class DefaultProcessExecutor<C extends ProcessContext,P extends Process<C>> implements ProcessExecutor<C,P> {
 
 	private static Logger logger = Logger.getLogger(DefaultProcessExecutor.class.getName());
 
-	private ProcessEndHandler defaultProcessEndHandler = new ProcessEndHandler() {
+	private ProcessEndHandler<C> defaultProcessEndHandler = new ProcessEndHandler<C>() {
 		
 		@Override
-		public void handleProcessEnd(ProcessContext context, Process process) {
+		public void handleProcessEnd(C context, Process<C> process) {
 			logger.info("Process terminated!");
 			
 		}
 	};
 
 	@Override
-	public void execute(ProcessContext context, Process process) throws Exception {
+	public void execute(C context, P process) throws Exception {
 
-		for (Activity activity : process) {
+		for (Activity<C> activity : process) {
 
 			logger.info(String.format("Executing activity %s:", activity));
 
-			context = activity.execute(context);
+			context =  activity.execute(context);
 
 			logger.info(String.format("Activity %s terminated.", activity));
 
 			if (process.isEnded(context)) {
 
-				ProcessEndHandler endHandler = activity.getProcessEndHandler();
+				ProcessEndHandler<C> endHandler = activity.getProcessEndHandler();
 
 				if (endHandler == null)
 					endHandler = getDefaultProcessEndHandler();
@@ -43,12 +43,12 @@ public class DefaultProcessExecutor implements ProcessExecutor {
 	}
 
 	@Override
-	public ProcessEndHandler getDefaultProcessEndHandler() {
+	public ProcessEndHandler<C> getDefaultProcessEndHandler() {
 		return defaultProcessEndHandler;
 	}
 
 	@Override
-	public void setDefaultProcessEndHandler(ProcessEndHandler defaultProcessEndHandler) {
+	public void setDefaultProcessEndHandler(ProcessEndHandler<C> defaultProcessEndHandler) {
 		this.defaultProcessEndHandler = defaultProcessEndHandler;
 	}
 

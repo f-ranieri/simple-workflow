@@ -1,11 +1,10 @@
 package it.ranieri.workflow.model;
 
-public interface ProcessExecutor {
+public interface ProcessExecutor<C extends ProcessContext, P extends Process<C>> {
 
-	public void execute(ProcessContext context, Process process) throws Exception;
+	public void execute(C context, P process) throws Exception;
 
-	public void setDefaultProcessEndHandler(ProcessEndHandler defaulProcessEndHandler);
+	public void setDefaultProcessEndHandler(ProcessEndHandler<C> defaulProcessEndHandler);
 
-	public ProcessEndHandler getDefaultProcessEndHandler();
-
+	public ProcessEndHandler<C> getDefaultProcessEndHandler();
 }

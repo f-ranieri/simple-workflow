@@ -1,7 +1,7 @@
 package it.ranieri.workflow.model;
 
-public interface Process extends Iterable<Activity> {
+public interface Process<C extends ProcessContext> extends Iterable<Activity<C>> {
 
-	public boolean isEnded(ProcessContext context);
+	public boolean isEnded(C context);
 
 }

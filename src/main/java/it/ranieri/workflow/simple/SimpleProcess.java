@@ -6,32 +6,31 @@ import java.util.List;
 
 import it.ranieri.workflow.model.Activity;
 import it.ranieri.workflow.model.Process;
-import it.ranieri.workflow.model.ProcessContext;
 
-public class SimpleProcess implements Process{
+public class SimpleProcess implements Process<SimpleContext>{
 	
-	private List<Activity> activities;
+	private List<Activity<SimpleContext>> activities;
 	
 	public SimpleProcess() {
-		activities = new LinkedList<>();
+		setActivities(new LinkedList<>());
 	}
 
 	@Override
-	public Iterator<Activity> iterator() {
-		return getActivities().iterator();
+	public boolean isEnded(SimpleContext context) {
+		return context.getMessages().size()>=3;
 	}
 
-	@Override
-	public boolean isEnded(ProcessContext context) {
-		return ((SimpleContext)context).getMessages().size()>=3;
-	}
-
-	public List<Activity> getActivities() {
+	public List<Activity<SimpleContext>> getActivities() {
 		return activities;
 	}
 
-	public void setActivities(List<Activity> activities) {
+	public void setActivities(List<Activity<SimpleContext>> activities) {
 		this.activities = activities;
+	}
+
+	@Override
+	public Iterator<Activity<SimpleContext>> iterator() {
+		return activities.iterator();
 	}
 
 }

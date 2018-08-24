@@ -1,7 +1,7 @@
 package it.ranieri.workflow.model;
 
-public interface ProcessEndHandler {
+public interface ProcessEndHandler<C extends ProcessContext> {
 
-	public void handleProcessEnd(ProcessContext context, Process process);
+	public void handleProcessEnd(C context, Process<C> process);
 
 }
