@@ -1,4 +1,4 @@
-package it.ranieri.pocs;
+package it.ranieri.workflow;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
